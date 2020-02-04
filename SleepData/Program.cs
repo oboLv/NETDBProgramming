@@ -15,8 +15,8 @@ namespace SleepData
             string resp = Console.ReadLine();
 
             // specify path for data file
-            string file = "/users/jgrissom/downloads/data.txt";
-
+            string file = AppDomain.CurrentDomain.BaseDirectory + "data.txt";
+            
             if (resp == "1")
             {
                 // create data file
@@ -58,8 +58,33 @@ namespace SleepData
             }
             else if (resp == "2")
             {
-                // TODO: parse data file
-
+                StreamReader sR = new StreamReader(file);
+                while(!sR.EndOfStream)
+                {
+                    string roughRead = sR.ReadLine();
+                    string[] tableEle = new string[] { "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa", "Tot", "Avg" };
+                    string[] roughArray = roughRead.Split(',');
+                    string[] splitArray = roughArray[1].Split('|');
+                    Console.WriteLine("Week of {0:d}", roughArray[0]);
+                    string tableFormat = "{0,3}\t{1,3}\t{2,3}\t{3,3}\t{4,3}\t{5,3}\t{6,3}\t{7,3}\t{8,3}";
+                    Console.WriteLine(tableFormat, tableEle[0], tableEle[1], tableEle[2], tableEle[3], tableEle[4], tableEle[5], tableEle[6], tableEle[7], tableEle[8]);
+                    Console.WriteLine(tableFormat, "--", "--", "--", "--", "--", "--", "--", "--", "--");
+                    int[] intArray = new int[7];
+                    for (int i = 0; i < 7; i++)
+                    {
+                        intArray[i] = Convert.ToInt32(splitArray[i]);
+                    }
+                    int total = 0;
+                    for(int i = 0; i < 7; i++)
+                    {
+                        total += intArray[i];
+                    }
+                    double avg = (double)total / 7;
+                    double cleanAvg = Math.Round(avg, 2);
+                    Console.Write(tableFormat, intArray[0], intArray[1], intArray[2], intArray[3], intArray[4], intArray[5], intArray[6], total, cleanAvg);
+                    Console.WriteLine();
+                }
+                Console.ReadKey();
             }
         }
     }
