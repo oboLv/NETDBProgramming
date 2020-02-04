@@ -81,8 +81,7 @@ namespace SleepData
                     }
                     double avg = (double)total / 7;
                     double cleanAvg = Math.Round(avg, 2);
-                    Console.Write(tableFormat, intArray[0], intArray[1], intArray[2], intArray[3], intArray[4], intArray[5], intArray[6], total, cleanAvg);
-                    Console.WriteLine();
+                    Console.WriteLine(tableFormat, intArray[0], intArray[1], intArray[2], intArray[3], intArray[4], intArray[5], intArray[6], total, cleanAvg);
                 }
                 Console.ReadKey();
             }
